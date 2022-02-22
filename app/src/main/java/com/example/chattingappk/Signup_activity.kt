@@ -11,6 +11,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 
 class Signup_activity : AppCompatActivity() {
 
@@ -21,6 +24,7 @@ class Signup_activity : AppCompatActivity() {
     private lateinit var have_account : TextView
 
     private lateinit var auth: FirebaseAuth
+    private  lateinit var  dbref: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,19 +46,24 @@ class Signup_activity : AppCompatActivity() {
     }
 
     fun btn_register(view: View) {
+        val rname =name.text.toString()
         val remail =email.text.toString()
         val rpassword =password.text.toString()
 
-        register(remail, rpassword)
+        register(rname,remail, rpassword)
     }
 
-    private fun register(remail:String, rpassword: String )
+    private fun register(rname:String, remail:String, rpassword: String )
     {
         auth.createUserWithEmailAndPassword(remail, rpassword)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    add_sers_in_database(rname, remail, auth.currentUser?.uid!!)
+
                     val intent = Intent(this@Signup_activity, MainActivity::class.java)
+                    finish()
                     startActivity(intent)
+
                 } else {
 
                     Toast.makeText(this@Signup_activity, "Error try again!" , Toast.LENGTH_LONG).show()
@@ -62,6 +71,12 @@ class Signup_activity : AppCompatActivity() {
 
                 }
             }
+
+    }
+
+    private fun add_sers_in_database(rname: String, remail: String, uid: String) {
+        dbref=FirebaseDatabase.getInstance().getReference()
+        dbref.child("user").child(uid).setValue(Users(rname, remail,uid))
 
     }
 }
