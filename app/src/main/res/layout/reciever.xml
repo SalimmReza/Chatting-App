@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
-    android:layout_marginRight="7dp"
+
+
   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,8 @@
             android:id="@+id/receiver_text_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
+            android:paddingRight="5dp"
             android:maxWidth="270dp"
             android:minWidth="50dp"
             android:text="Text fhddgfgjsdf jdfhkjsfgjs gjs gdfhdfh dfh dfhsdfhfdhsdf dfhgdfghfdg gjsadfgjsdfjsg"

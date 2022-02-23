@@ -1,11 +1,13 @@
 package com.example.chattingappk
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 
 class UsersAdapter(val context: Context, val usersList: ArrayList<Users>):
     RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
@@ -24,6 +26,17 @@ class UsersAdapter(val context: Context, val usersList: ArrayList<Users>):
 
          val currentUsers= usersList[position]
         holder.name.text=currentUsers.name
+
+        //to go to specify chat
+            holder.itemView.setOnClickListener{
+                val intent = Intent(context, Chat::class.java)
+               intent.putExtra("name", currentUsers.name)
+               intent.putExtra("uid", currentUsers.uid)
+
+
+                context.startActivity(intent)
+            }
+
 
     }
 

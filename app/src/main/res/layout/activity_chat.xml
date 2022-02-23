@@ -19,26 +19,30 @@
         android:id="@+id/linear_layout_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
         android:weightSum="100"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         >
+
         <EditText
             android:id="@+id/messagebox_id"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:paddingLeft="10dp"
+            android:layout_weight="80"
+
             android:background="@drawable/chatbox"
             android:hint="Type Message"
-            android:layout_weight="80"/>
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/send_message_id"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/right"
-            android:layout_weight="20"/>
+            android:layout_weight="20"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/right" />
 
 
     </LinearLayout>
