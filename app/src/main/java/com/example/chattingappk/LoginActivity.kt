@@ -1,5 +1,6 @@
 package com.example.chattingappk
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,10 +23,28 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    var sharedpreferences: SharedPreferences? = null
+    var autoSave = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        sharedpreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE)
+        val j = sharedpreferences?.getInt("key", 0)
+
+        //Default is 0 so autologin is disabled
+
+        //Default is 0 so autologin is disabled
+        if (j != null) {
+            if (j > 0) {
+                val activity = Intent(applicationContext, MainActivity::class.java)
+                startActivity(activity)
+            }
+        }
+
+
 
         auth= FirebaseAuth.getInstance()
         supportActionBar?.hide()
@@ -64,5 +86,11 @@ class LoginActivity : AppCompatActivity() {
 
                 }
             }
+
+        autoSave = 1
+        val editor = sharedpreferences!!.edit()
+        editor.putInt("key", autoSave)
+        editor.apply()
+
     }
 }
